@@ -179,8 +179,8 @@ interface IX402BSCWrapper {
 
 ## 🔒 Security
 
-- **Audits:** Pending professional audit (Q1 2024)
-- **Bug Bounty:** Report issues via [security@x4four4.org](mailto:security@x4four4.org)
+- **Audits:** Pending professional audit (Q4 2025)
+- **Bug Bounty:** Report issues via [security@x444.io](mailto:security@x444.io)
 - **Verified:** Contracts verified on BscScan
 - **Immutable:** No admin functions, upgrades, or pausability
 
