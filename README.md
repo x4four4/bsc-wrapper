@@ -60,7 +60,7 @@ X402 BSC Wrapper is a smart contract that provides EIP-3009 (`transferWithAuthor
 | **EIP-2612 Permit**     | ✅ USD1 Supports | ❌ USD1 Doesn't Support  |
 | **Gasless Transfers**   | ✅ Available     | ❌ Pre-approval Required |
 | **Verification Status** | ✅ Verified      | ✅ Verified              |
-| **Deployment Date**     | October 2024     | October 2024             |
+| **Deployment Date**     | October 2025     | October 2025             |
 
 ## 🚀 Quick Start
 
