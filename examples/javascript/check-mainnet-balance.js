@@ -11,7 +11,7 @@ const { ethers } = require("ethers");
 require("dotenv").config();
 
 const USD1_ADDRESS = "0x8d0D000Ee44948FC98c9B98A4FA4921476f08B0d";
-const WRAPPER_ADDRESS = "0x9C21afb2B9C04aD3E31868234AD94D5b895c5e07";
+const WRAPPER_ADDRESS = "0x6F212f443Ba6BD5aeeF87e37DEe2480F95b75a36";
 const BSC_MAINNET_RPC = "https://bsc-rpc.publicnode.com";
 
 async function checkBalance(address) {

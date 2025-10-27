@@ -87,13 +87,8 @@ async function signGaslessTransfer(
   }
 }
 
-// Create EIP-2612 permit signature for USD1
-async function signPermit(
-  owner: string,
-  spender: string,
-  amount: string,
-  network: Network
-) {
+// Create EIP-2612 permit signature for USD1 with MAX allowance
+async function signPermit(owner: string, spender: string, network: Network) {
   console.log("🔏 Creating permit signature...");
 
   const signer = await getSigner();
@@ -102,9 +97,13 @@ async function signPermit(
     throw new Error("No provider found");
   }
 
-  const amountWei = ethers.parseUnits(amount, 18);
+  // IMPORTANT: Use MAX_UINT256 for permit to match the contract's behavior
+  // This prevents allowance reduction attacks
+  const MAX_UINT256 = ethers.MaxUint256;
   const currentTime = Math.floor(Date.now() / 1000);
   const deadline = currentTime + PERMIT_DEADLINE;
+
+  console.log("   Using MAX value for permit to prevent allowance reduction");
 
   // Get nonce from USD1 contract
   const usd1Contract = new ethers.Contract(
@@ -117,7 +116,7 @@ async function signPermit(
   try {
     nonce = await usd1Contract.nonces(owner);
     console.log("   Current permit nonce:", nonce.toString());
-  } catch (error) {
+  } catch {
     console.log("   Failed to get nonce, using 0");
     nonce = BigInt(0);
   }
@@ -131,7 +130,7 @@ async function signPermit(
   const message = {
     owner,
     spender,
-    value: amountWei.toString(),
+    value: MAX_UINT256.toString(), // Use MAX value to match contract
     nonce: nonce.toString(),
     deadline,
   };
@@ -196,12 +195,7 @@ export async function createGaslessSignatures(
   let permitSig = null;
   if (network.supportsPermit) {
     console.log("\n📝 Network supports permit, creating permit signature...");
-    permitSig = await signPermit(
-      from,
-      network.contracts.wrapper,
-      amount,
-      network
-    );
+    permitSig = await signPermit(from, network.contracts.wrapper, network);
   } else {
     console.log(
       "\n⚠️ Network doesn't support permit, skipping permit signature"

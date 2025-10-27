@@ -1,11 +1,11 @@
 {
   "network": "bsc",
-  "address": "0x39228EB6452e6880Dee82e55d49468ce6697fB46",
+  "address": "0x6F212f443Ba6BD5aeeF87e37DEe2480F95b75a36",
   "usd1Address": "0x8d0D000Ee44948FC98c9B98A4FA4921476f08B0d",
   "deployer": "0x7De69f1BEee179F9e1854d68D22a186623Aa891f",
-  "timestamp": "2025-10-27T00:38:21.566Z",
-  "transactionHash": "0x89daaa279ff3b4ccbcd275dde100dbc984a430896e257bfee0f4de081ded1621",
-  "blockNumber": 66032874,
+  "timestamp": "2025-10-27T19:33:44.599Z",
+  "transactionHash": "0xd759cabbd7122bd12e8f6e22ef88172897a446ba54efa665c6492b58a2dfab53",
+  "blockNumber": 66123694,
   "gasPrice": "100000000",
   "compiler": "0.8.19",
   "optimizer": true

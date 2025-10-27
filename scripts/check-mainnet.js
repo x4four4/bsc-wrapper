@@ -5,7 +5,7 @@
 const { ethers } = require("ethers");
 
 async function checkMainnet() {
-  const WRAPPER = "0x39228EB6452e6880Dee82e55d49468ce6697fB46";
+  const WRAPPER = "0x6F212f443Ba6BD5aeeF87e37DEe2480F95b75a36";
   const USD1 = "0x8d0D000Ee44948FC98c9B98A4FA4921476f08B0d";
   const provider = new ethers.JsonRpcProvider("https://bsc-rpc.publicnode.com");
 

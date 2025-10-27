@@ -13,6 +13,7 @@ interface IERC20Permit {
     ) external;
     
     function transferFrom(address from, address to, uint256 amount) external returns (bool);
+    function allowance(address owner, address spender) external view returns (uint256);
     function nonces(address owner) external view returns (uint256);
     function DOMAIN_SEPARATOR() external view returns (bytes32);
 }
@@ -21,6 +22,7 @@ interface IERC20Permit {
  * @title X402BSCWrapper
  * @notice Advanced wrapper enabling gasless approvals via EIP-2612 permit
  * @dev Converts EIP-3009 calls to permit + transferFrom in a single transaction
+ * @dev Security update: Now uses max approval in permits to prevent allowance reduction attacks
  * @author x402 Protocol Contributors
  */
 contract X402BSCWrapper {
@@ -32,6 +34,8 @@ contract X402BSCWrapper {
     
     // Events (EIP-3009 compatible)
     event AuthorizationUsed(address indexed authorizer, bytes32 indexed nonce);
+    event PermitExecuted(address indexed owner, address indexed spender, uint256 value);
+    event PermitSkipped(address indexed owner, address indexed spender, string reason);
     
     // Custom errors for gas efficiency
     error AuthorizationNotYetValid();
@@ -99,6 +103,7 @@ contract X402BSCWrapper {
     
     /**
      * @dev Handles gasless transfer using permit
+     * @notice Updated to use max approval to prevent allowance reduction attacks
      */
     function _handlePermitAndTransfer(
         address from,
@@ -106,37 +111,56 @@ contract X402BSCWrapper {
         uint256 value,
         bytes calldata signature
     ) private {
-        // Extract permit signature components
-        bytes32 permitR;
-        bytes32 permitS;
-        uint8 permitV;
-        uint256 deadline;
+        // Check current allowance first to avoid unnecessary permits
+        uint256 currentAllowance = token.allowance(from, address(this));
         
-        assembly {
-            // Skip first 65 bytes (EIP-3009 signature)
-            permitR := calldataload(add(signature.offset, 65))
-            permitS := calldataload(add(signature.offset, 97))
-            permitV := byte(0, calldataload(add(signature.offset, 129)))
-            deadline := calldataload(add(signature.offset, 130))
+        // Only execute permit if current allowance is insufficient
+        if (currentAllowance < value) {
+            // Extract permit signature components
+            bytes32 permitR;
+            bytes32 permitS;
+            uint8 permitV;
+            uint256 deadline;
+            
+            assembly {
+                // Skip first 65 bytes (EIP-3009 signature)
+                permitR := calldataload(add(signature.offset, 65))
+                permitS := calldataload(add(signature.offset, 97))
+                permitV := byte(0, calldataload(add(signature.offset, 129)))
+                deadline := calldataload(add(signature.offset, 130))
+            }
+            
+            // Execute permit with MAX value to prevent allowance reduction attacks
+            // Using type(uint256).max ensures we don't reduce existing allowances
+            try token.permit(
+                from,
+                address(this),
+                type(uint256).max,  // SECURITY FIX: Use max value instead of exact amount
+                deadline,
+                permitV,
+                permitR,
+                permitS
+            ) {
+                // Permit successful - emit event for transparency
+                emit PermitExecuted(from, address(this), type(uint256).max);
+            } catch {
+                // Permit might have already been used or other error
+                // Check if we still have sufficient allowance to proceed
+                currentAllowance = token.allowance(from, address(this));
+                if (currentAllowance < value) {
+                    // If still insufficient after permit attempt, revert early
+                    // This prevents wasting gas on a transferFrom that will fail
+                    revert TransferFailed();
+                } else {
+                    // We have sufficient allowance, continue with transfer
+                    emit PermitSkipped(from, address(this), "Permit skipped - sufficient allowance exists");
+                }
+            }
+        } else {
+            // Already have sufficient allowance, no permit needed
+            emit PermitSkipped(from, address(this), "Sufficient allowance already exists");
         }
         
-        // Execute permit for gasless approval
-        try token.permit(
-            from,
-            address(this),
-            value,
-            deadline,
-            permitV,
-            permitR,
-            permitS
-        ) {
-            // Permit successful
-        } catch {
-            // Permit might have already been used or allowance exists
-            // Continue to try transfer anyway
-        }
-        
-        // Execute transfer
         bool success = token.transferFrom(from, to, value);
         if (!success) revert TransferFailed();
     }

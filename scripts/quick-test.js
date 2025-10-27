@@ -5,7 +5,7 @@
 const { ethers } = require("ethers");
 
 async function quickTest() {
-  const WRAPPER = "0xb73727c185fc8444a3c31dc5a25556d76f5d8c42";
+  const WRAPPER = "0x9C21afb2B9C04aD3E31868234AD94D5b895c5e07";
   const provider = new ethers.JsonRpcProvider(
     "https://data-seed-prebsc-1-s1.binance.org:8545"
   );

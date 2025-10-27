@@ -31,25 +31,25 @@ X402 BSC Wrapper is a smart contract that provides EIP-3009 (`transferWithAuthor
 
 | Network         | Address                                      | Status      | Gasless Support | Explorer                                                                                       |
 | --------------- | -------------------------------------------- | ----------- | --------------- | ---------------------------------------------------------------------------------------------- |
-| **BSC Mainnet** | `0x39228EB6452e6880Dee82e55d49468ce6697fB46` | ✅ Verified | ✅ Full Permit  | [BscScan](https://bscscan.com/address/0x39228EB6452e6880Dee82e55d49468ce6697fB46#code)         |
-| **BSC Testnet** | `0xb73727c185fc8444a3c31dc5a25556d76f5d8c42` | ✅ Verified | ❌ No Permit    | [BscScan](https://testnet.bscscan.com/address/0xb73727c185fc8444a3c31dc5a25556d76f5d8c42#code) |
+| **BSC Mainnet** | `0x6F212f443Ba6BD5aeeF87e37DEe2480F95b75a36` | ✅ Verified | ✅ Full Permit  | [BscScan](https://bscscan.com/address/0x6F212f443Ba6BD5aeeF87e37DEe2480F95b75a36#code)         |
+| **BSC Testnet** | `0x9C21afb2B9C04aD3E31868234AD94D5b895c5e07` | ✅ Verified | ❌ No Permit    | [BscScan](https://testnet.bscscan.com/address/0x9C21afb2B9C04aD3E31868234AD94D5b895c5e07#code) |
 
 ### Contract Links
 
 #### 🌐 **BSC Mainnet**
 
-- **Contract:** [`0x39228EB6452e6880Dee82e55d49468ce6697fB46`](https://bscscan.com/address/0x39228EB6452e6880Dee82e55d49468ce6697fB46)
-- **Verified Code:** [View Source](https://bscscan.com/address/0x39228EB6452e6880Dee82e55d49468ce6697fB46#code)
-- **Read Contract:** [Query Functions](https://bscscan.com/address/0x39228EB6452e6880Dee82e55d49468ce6697fB46#readContract)
-- **Write Contract:** [Interact](https://bscscan.com/address/0x39228EB6452e6880Dee82e55d49468ce6697fB46#writeContract)
+- **Contract:** [`0x6F212f443Ba6BD5aeeF87e37DEe2480F95b75a36`](https://bscscan.com/address/0x6F212f443Ba6BD5aeeF87e37DEe2480F95b75a36)
+- **Verified Code:** [View Source](https://bscscan.com/address/0x6F212f443Ba6BD5aeeF87e37DEe2480F95b75a36#code)
+- **Read Contract:** [Query Functions](https://bscscan.com/address/0x6F212f443Ba6BD5aeeF87e37DEe2480F95b75a36#readContract)
+- **Write Contract:** [Interact](https://bscscan.com/address/0x6F212f443Ba6BD5aeeF87e37DEe2480F95b75a36#writeContract)
 - **USD1 Token:** [`0x8d0D000Ee44948FC98c9B98A4FA4921476f08B0d`](https://bscscan.com/token/0x8d0D000Ee44948FC98c9B98A4FA4921476f08B0d)
 
 #### 🧪 **BSC Testnet**
 
-- **Contract:** [`0xb73727c185fc8444a3c31dc5a25556d76f5d8c42`](https://testnet.bscscan.com/address/0xb73727c185fc8444a3c31dc5a25556d76f5d8c42)
-- **Verified Code:** [View Source](https://testnet.bscscan.com/address/0xb73727c185fc8444a3c31dc5a25556d76f5d8c42#code)
-- **Read Contract:** [Query Functions](https://testnet.bscscan.com/address/0xb73727c185fc8444a3c31dc5a25556d76f5d8c42#readContract)
-- **Write Contract:** [Interact](https://testnet.bscscan.com/address/0xb73727c185fc8444a3c31dc5a25556d76f5d8c42#writeContract)
+- **Contract:** [`0x9C21afb2B9C04aD3E31868234AD94D5b895c5e07`](https://testnet.bscscan.com/address/0x9C21afb2B9C04aD3E31868234AD94D5b895c5e07)
+- **Verified Code:** [View Source](https://testnet.bscscan.com/address/0x9C21afb2B9C04aD3E31868234AD94D5b895c5e07#code)
+- **Read Contract:** [Query Functions](https://testnet.bscscan.com/address/0x9C21afb2B9C04aD3E31868234AD94D5b895c5e07#readContract)
+- **Write Contract:** [Interact](https://testnet.bscscan.com/address/0x9C21afb2B9C04aD3E31868234AD94D5b895c5e07#writeContract)
 - **USD1 Token:** [`0x004ba8e73b41750084b01edacc08c39662e262af`](https://testnet.bscscan.com/token/0x004ba8e73b41750084b01edacc08c39662e262af)
 
 ### 📊 Contract Features
@@ -114,11 +114,11 @@ npm run verify:mainnet
 const { ethers } = require("ethers");
 
 // Contract addresses (BSC Mainnet)
-const WRAPPER = "0x39228EB6452e6880Dee82e55d49468ce6697fB46";
+const WRAPPER = "0x6F212f443Ba6BD5aeeF87e37DEe2480F95b75a36";
 const USD1 = "0x8d0D000Ee44948FC98c9B98A4FA4921476f08B0d";
 
 // For Testnet:
-// const WRAPPER = "0xb73727c185fc8444a3c31dc5a25556d76f5d8c42";
+// const WRAPPER = "0x9C21afb2B9C04aD3E31868234AD94D5b895c5e07";
 // const USD1 = "0x004ba8e73b41750084b01edacc08c39662e262af";
 
 // Create signature

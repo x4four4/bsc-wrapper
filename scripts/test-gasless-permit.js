@@ -14,14 +14,14 @@ const NETWORK = process.env.NETWORK || "testnet"; // "testnet" or "mainnet"
 
 const CONFIG = {
   testnet: {
-    wrapper: "0xb73727c185fc8444a3c31dc5a25556d76f5d8c42",
+    wrapper: "0x9C21afb2B9C04aD3E31868234AD94D5b895c5e07",
     usd1: "0x004ba8e73b41750084b01edacc08c39662e262af",
     rpc: "https://data-seed-prebsc-1-s1.binance.org:8545",
     chainId: 97,
     explorer: "https://testnet.bscscan.com",
   },
   mainnet: {
-    wrapper: "0x39228EB6452e6880Dee82e55d49468ce6697fB46",
+    wrapper: "0x6F212f443Ba6BD5aeeF87e37DEe2480F95b75a36",
     usd1: "0x8d0D000Ee44948FC98c9B98A4FA4921476f08B0d",
     rpc: "https://bsc-rpc.publicnode.com",
     chainId: 56,
