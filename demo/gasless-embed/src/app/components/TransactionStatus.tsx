@@ -70,7 +70,7 @@ function TransactionStatus({ transaction, onClose }: TransactionStatusProps) {
       </div>
 
       {/* Transaction details */}
-      <div className="space-y-2">
+      <div className="space-y-1">
         {/* Amount card */}
         <div className="bg-[#FFF9E6] flex items-center justify-between rounded-2xl p-4 border border-[#F0D890]/30">
           <label className="text-sm text-gray-700 font-normal block">
@@ -91,11 +91,11 @@ function TransactionStatus({ transaction, onClose }: TransactionStatusProps) {
 
         {/* TX Hash card */}
         <div className="bg-[#FFF9E6] flex items-center justify-between rounded-2xl p-4 border border-[#F0D890]/30">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center">
             <label className="text-sm text-gray-700 font-normal">TX Hash</label>
             <button
               onClick={() => copyToClipboard(transaction.txHash)}
-              className="text-gray-500 hover:text-gray-700"
+              className="text-gray-500 hover:text-gray-700 ml-2"
               title="Copy"
             >
               <FiCopy className="w-3 h-3" />
@@ -130,7 +130,7 @@ function TransactionStatus({ transaction, onClose }: TransactionStatusProps) {
       </div>
 
       {/* Action buttons - same style as form */}
-      <div className="flex gap-2 mt-6">
+      <div className="flex gap-2 mt-5">
         <a
           href={
             transaction.explorerUrl ||
