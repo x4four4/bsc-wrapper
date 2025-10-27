@@ -72,8 +72,8 @@ function TransactionStatus({ transaction, onClose }: TransactionStatusProps) {
       {/* Transaction details */}
       <div className="space-y-3">
         {/* Amount card */}
-        <div className="bg-[#FFF9E6] rounded-2xl p-4 border border-[#F0D890]/30">
-          <label className="text-sm text-gray-700 font-normal block mb-2">
+        <div className="bg-[#FFF9E6] flex items-center justify-between rounded-2xl p-4 border border-[#F0D890]/30">
+          <label className="text-sm text-gray-700 font-normal block">
             Amount
           </label>
           <div className="text-lg font-normal text-gray-900">
@@ -82,18 +82,16 @@ function TransactionStatus({ transaction, onClose }: TransactionStatusProps) {
         </div>
 
         {/* Recipient card */}
-        <div className="bg-[#FFF9E6] rounded-2xl p-4 border border-[#F0D890]/30">
-          <label className="text-sm text-gray-700 font-normal block mb-2">
-            To
-          </label>
+        <div className="bg-[#FFF9E6] flex items-center justify-between rounded-2xl p-4 border border-[#F0D890]/30">
+          <label className="text-sm text-gray-700 font-normal block">To</label>
           <div className="font-mono text-gray-700">
             {formatAddress(transaction.to)}
           </div>
         </div>
 
         {/* TX Hash card */}
-        <div className="bg-[#FFF9E6] rounded-2xl p-4 border border-[#F0D890]/30">
-          <div className="flex items-center justify-between mb-2">
+        <div className="bg-[#FFF9E6] flex items-center justify-between rounded-2xl p-4 border border-[#F0D890]/30">
+          <div className="flex items-center justify-between">
             <label className="text-sm text-gray-700 font-normal">TX Hash</label>
             <button
               onClick={() => copyToClipboard(transaction.txHash)}
@@ -126,18 +124,13 @@ function TransactionStatus({ transaction, onClose }: TransactionStatusProps) {
               <div className="text-xs text-gray-500">
                 {gasData?.gasCostBNB.toFixed(5) || "0.00036"} BNB
               </div>
-              {gasData && (
-                <div className="text-xs text-gray-400 mt-1">
-                  @ ${gasData.bnbPrice.toFixed(0)} • {gasData.gasPrice} gwei
-                </div>
-              )}
             </div>
           </div>
         </div>
       </div>
 
       {/* Action buttons - same style as form */}
-      <div className="flex gap-3 mt-6">
+      <div className="flex gap-2 mt-6">
         <a
           href={
             transaction.explorerUrl ||
