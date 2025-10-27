@@ -1,0 +1,109 @@
+name: Tests
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Compile contracts
+        run: npm run compile
+
+      - name: Run tests
+        run: npm test
+
+      - name: Run coverage
+        run: npm run test:coverage
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./coverage/lcov.info
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: false
+
+      - name: Check contract sizes
+        run: npm run size
+
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: contract-artifacts
+          path: |
+            artifacts/
+            typechain-types/
+
+  security:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18.x"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Slither
+        uses: crytic/slither-action@v0.3.0
+        continue-on-error: true
+        with:
+          target: "contracts/"
+          slither-args: "--json slither-report.json"
+
+      - name: Upload Slither report
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: slither-report
+          path: slither-report.json
+
+      - name: NPM Audit
+        run: npm audit --audit-level=moderate
+
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18.x"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint Solidity
+        run: npx solhint 'contracts/**/*.sol'
+
+      - name: Lint JavaScript
+        run: npx eslint '**/*.js'
+
+      - name: Check formatting
+        run: npx prettier --check '**/*.{js,sol,json,md}'

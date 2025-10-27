@@ -1,0 +1,60 @@
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Hardhat
+artifacts/
+cache/
+typechain/
+typechain-types/
+coverage/
+coverage.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Testing
+test-results/
+*.log
+gas-report.txt
+
+# Build
+dist/
+build/
+out/
+
+# Security
+*.pem
+*.key
+*.cert
+.secrets
+
+# Deployment
+deployments/local/
+deployments/localhost/
+
+# Reports
+slither-report.json
+audit-reports/
+*.pdf
+
+# Temporary
+tmp/
+temp/
+*.tmp
+*.bak
+
+# OS
+Thumbs.db
+Desktop.ini

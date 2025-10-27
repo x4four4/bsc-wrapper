@@ -1,0 +1,70 @@
+{
+  "name": "@x4four4/bsc-wrapper",
+  "version": "1.0.0",
+  "description": "X402 Protocol BSC Wrapper - EIP-3009 compatibility layer for USD1",
+  "author": "x4four4",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/x4four4/bsc-wrapper"
+  },
+  "keywords": [
+    "x402",
+    "bsc",
+    "binance",
+    "smart-chain",
+    "eip-3009",
+    "eip-2612",
+    "wrapper",
+    "usd1",
+    "defi"
+  ],
+  "scripts": {
+    "compile": "hardhat compile",
+    "clean": "hardhat clean",
+    "test": "hardhat test",
+    "test:coverage": "hardhat coverage",
+    "test:gas": "REPORT_GAS=true hardhat test",
+    "deploy:testnet": "hardhat run scripts/deploy.js --network bsc-testnet",
+    "deploy:mainnet": "hardhat run scripts/deploy.js --network bsc",
+    "verify:testnet": "hardhat run scripts/verify.js --network bsc-testnet",
+    "verify:mainnet": "hardhat run scripts/verify.js --network bsc",
+    "size": "hardhat size-contracts",
+    "audit": "npm audit && slither contracts/",
+    "format": "prettier --write '**/*.{js,sol,json,md}'",
+    "lint": "solhint 'contracts/**/*.sol' && eslint '**/*.js'",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-chai-matchers": "^2.0.0",
+    "@nomicfoundation/hardhat-ethers": "^3.0.0",
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.0",
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "@nomicfoundation/hardhat-verify": "^2.0.0",
+    "@openzeppelin/contracts": "^5.4.0",
+    "@typechain/ethers-v6": "^0.5.0",
+    "@typechain/hardhat": "^9.0.0",
+    "@types/chai": "^4.2.0",
+    "@types/mocha": ">=9.1.0",
+    "@types/node": ">=18.0.0",
+    "chai": "^4.2.0",
+    "dotenv": "^16.0.3",
+    "eslint": "^8.0.0",
+    "ethers": "^6.4.0",
+    "hardhat": "^2.19.0",
+    "hardhat-contract-sizer": "^2.10.0",
+    "hardhat-gas-reporter": "^1.0.9",
+    "husky": "^8.0.0",
+    "prettier": "^3.0.0",
+    "prettier-plugin-solidity": "^1.2.0",
+    "solhint": "^4.0.0",
+    "solidity-coverage": "^0.8.0",
+    "ts-node": ">=8.0.0",
+    "typechain": "^8.3.0",
+    "typescript": ">=4.5.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}
