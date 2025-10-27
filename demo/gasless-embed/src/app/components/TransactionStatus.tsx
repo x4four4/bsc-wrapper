@@ -70,7 +70,7 @@ function TransactionStatus({ transaction, onClose }: TransactionStatusProps) {
       </div>
 
       {/* Transaction details */}
-      <div className="space-y-3">
+      <div className="space-y-2">
         {/* Amount card */}
         <div className="bg-[#FFF9E6] flex items-center justify-between rounded-2xl p-4 border border-[#F0D890]/30">
           <label className="text-sm text-gray-700 font-normal block">
@@ -138,14 +138,14 @@ function TransactionStatus({ transaction, onClose }: TransactionStatusProps) {
           }
           target="_blank"
           rel="noopener noreferrer"
-          className="flex-1 text-center bg-gray-700 hover:bg-gray-800 text-white font-medium py-4 px-6 rounded-full transition-colors text-sm"
+          className="flex-1 text-center bg-gray-700 hover:bg-gray-800 text-white font-medium py-4 px-4 rounded-full transition-colors text-sm"
         >
           View on BSCScan
         </a>
 
         <button
           onClick={onClose}
-          className="flex-1 bg-[#FFD966] hover:bg-[#F0CB5C] text-gray-900 font-medium py-4 px-6 rounded-full transition-colors text-sm shadow-sm hover:shadow-md transform hover:-translate-y-0.5"
+          className="flex-1 bg-[#FFD966] hover:bg-[#F0CB5C] text-gray-900 font-medium py-4 px-4 rounded-full transition-colors text-sm shadow-sm hover:shadow-md transform hover:-translate-y-0.5"
         >
           New Transfer
         </button>
