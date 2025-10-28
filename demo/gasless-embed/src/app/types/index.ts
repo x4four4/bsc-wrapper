@@ -111,12 +111,12 @@ export interface BalanceResponse {
 
 // Component props
 export interface WalletConnectProps {
-  onConnect: () => Promise<void>;
+  onConnect: (walletId?: string) => Promise<void>;
   isConnecting: boolean;
 }
 
 export interface TransferFormProps {
-  onConnect: () => Promise<void>;
+  onConnect: (walletId?: string) => Promise<void>;
   isConnecting: boolean;
   account?: string | null;
   network?: Network | null;
@@ -129,7 +129,7 @@ export interface TransactionStatusProps {
 }
 
 export interface SubmitButtonProps {
-  onConnect: () => Promise<void>;
+  onConnect: (walletId?: string) => Promise<void>;
   isConnecting: boolean;
 }
 
@@ -151,9 +151,5 @@ export interface ApiError extends Error {
   data?: unknown;
 }
 
-// Window extension
-declare global {
-  interface Window {
-    ethereum?: EthereumProvider;
-  }
-}
+// Window extension - using 'any' for ethereum as it's already declared elsewhere
+// The ethereum provider is handled via window.ethereum and type assertions where needed

@@ -93,34 +93,29 @@ export function TransferProvider({
 
   const validateForm = useCallback(() => {
     if (!recipient || !ethers.isAddress(recipient)) {
-      setFeedback("Please enter a valid BSC address", "error");
       return false;
     }
 
     if (recipient.toLowerCase() === account?.toLowerCase()) {
-      setFeedback("Cannot send to yourself", "error");
       return false;
     }
 
     const amountNum = parseFloat(amount);
     if (!amount || amountNum <= 0) {
-      setFeedback("Please enter a valid amount", "error");
       return false;
     }
 
     if (amountNum < 0.01) {
-      setFeedback("Minimum transfer amount is 0.01 USD1", "error");
       return false;
     }
 
     const balanceNum = parseFloat(balance);
     if (amountNum > balanceNum) {
-      setFeedback("USD1 balance insufficient", "error");
       return false;
     }
 
     return true;
-  }, [recipient, account, amount, balance, setFeedback]);
+  }, [recipient, account, amount, balance]);
 
   const resetForm = useCallback(() => {
     setRecipient("");
@@ -137,7 +132,6 @@ export function TransferProvider({
 
     try {
       // Step 1: Create signatures
-      setFeedback("Please sign the transaction in your wallet...", "info");
 
       const signatures = await createGaslessSignatures(
         account!,
@@ -197,9 +191,8 @@ export function TransferProvider({
       }
 
       if (!confirmed) {
-        setFeedback(
-          "Transaction confirmation timeout. Check the explorer for the status.",
-          "error"
+        console.error(
+          "Transaction confirmation timeout. Check the explorer for the status."
         );
       }
     } catch (error) {
@@ -213,15 +206,14 @@ export function TransferProvider({
         transferError.code === "ACTION_REJECTED" ||
         transferError.message?.includes("rejected")
       ) {
-        setFeedback("Transaction cancelled by user", "error");
+        console.error("Transaction cancelled by user");
       } else if (transferError.message?.includes("Insufficient")) {
-        setFeedback("Insufficient USD1 balance", "error");
+        console.error("Insufficient USD1 balance");
       } else if (transferError.message?.includes("Nonce already used")) {
-        setFeedback("This transaction has already been processed", "error");
+        console.error("This transaction has already been processed");
       } else {
-        setFeedback(
-          transferError.message || "Transfer failed. Please try again.",
-          "error"
+        console.error(
+          transferError.message || "Transfer failed. Please try again."
         );
       }
       return false;
@@ -238,7 +230,6 @@ export function TransferProvider({
     validateForm,
     onTransactionComplete,
     resetForm,
-    setFeedback,
   ]);
 
   // Fetch balance when account changes

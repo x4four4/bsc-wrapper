@@ -1,18 +1,67 @@
 "use client";
 
 import type { SubmitButtonProps } from "@/app/types";
+import { useEffect, useState } from "react";
 import { FiEdit3, FiLoader, FiSend } from "react-icons/fi";
 import { useTransfer } from "../../hooks/useTransfer";
+import { useWeb3 } from "../../hooks/useWeb3";
+import WalletBottomSheet from "../WalletBottomSheet";
 import WalletConnect from "../WalletConnect";
 
-function SubmitButton({ onConnect, isConnecting }: SubmitButtonProps) {
+interface ExtendedSubmitButtonProps extends SubmitButtonProps {
+  onOpenWalletSheet?: () => void;
+}
+
+function SubmitButton({ onConnect, isConnecting }: ExtendedSubmitButtonProps) {
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const [connectingWallet, setConnectingWallet] = useState<string>();
   const { account, isProcessing, recipient, amount, step } = useTransfer();
+  const { error } = useWeb3();
+
+  // Close sheet when account connects successfully
+  useEffect(() => {
+    if (account && isSheetOpen) {
+      setTimeout(() => {
+        setIsSheetOpen(false);
+        setConnectingWallet(undefined);
+      }, 500);
+    }
+  }, [account, isSheetOpen]);
+
+  const handleWalletSelect = async (walletId: string) => {
+    setConnectingWallet(walletId);
+
+    try {
+      // Call the original connect function with wallet type
+      await onConnect(walletId);
+      // The sheet will close automatically via useEffect when account connects
+    } catch (error) {
+      console.error("Wallet connection error:", error);
+      setConnectingWallet(undefined);
+      // Don't close the sheet on error
+    }
+  };
 
   if (!account) {
     return (
-      <div className="mt-6">
-        <WalletConnect onConnect={onConnect} isConnecting={isConnecting} />
-      </div>
+      <>
+        <div className="mt-6">
+          <WalletConnect
+            onConnect={onConnect}
+            isConnecting={isConnecting}
+            onOpenSheet={() => setIsSheetOpen(true)}
+          />
+        </div>
+
+        <WalletBottomSheet
+          isOpen={isSheetOpen}
+          onClose={() => setIsSheetOpen(false)}
+          onWalletSelect={handleWalletSelect}
+          isConnecting={isConnecting}
+          connectingWallet={connectingWallet}
+          error={error}
+        />
+      </>
     );
   }
 

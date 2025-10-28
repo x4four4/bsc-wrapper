@@ -4,7 +4,6 @@ import type { TransferFormProps } from "@/app/types";
 import { TransferProvider } from "../contexts/TransferContext";
 import { useTransfer } from "../hooks/useTransfer";
 import AmountInput from "./transfer/AmountInput";
-import FeedbackMessage from "./transfer/FeedbackMessage";
 import RecipientInput from "./transfer/RecipientInput";
 import SubmitButton from "./transfer/SubmitButton";
 import TransferHeader from "./transfer/TransferHeader";
@@ -14,13 +13,12 @@ function TransferFormContent({ onConnect, isConnecting }: TransferFormProps) {
   const { handleSubmit } = useTransfer();
 
   return (
-    <div className="w-full max-w-md mx-auto">
+    <div className="w-full max-w-md mx-auto relative">
       <TransferHeader />
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <AmountInput />
         <RecipientInput />
-        <FeedbackMessage />
         <SubmitButton onConnect={onConnect} isConnecting={isConnecting} />
       </form>
     </div>

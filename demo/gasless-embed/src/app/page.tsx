@@ -54,7 +54,7 @@ export default function Page() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="w-full max-w-[420px] bg-[#FFF1C6] rounded-[32px] p-8 overflow-hidden"
+        className="w-full max-w-[420px] bg-[#FFF1C6] rounded-[32px] p-8 overflow-hidden relative"
       >
         {/* Show transaction status if there's one */}
         {currentTransaction ? (

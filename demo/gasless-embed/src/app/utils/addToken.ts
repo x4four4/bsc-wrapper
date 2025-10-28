@@ -12,7 +12,6 @@ export async function addUSD1ToMetaMask() {
     await window.ethereum.request({
       method: "wallet_watchAsset",
       params: {
-        // @ts-expect-error - type is not typed
         type: "ERC20",
         options: {
           address: USD1_ADDRESS,
